@@ -1,0 +1,132 @@
+@import "../../css-config/mixins.scss";
+
+.header-main {
+  padding: 0 20px;
+  z-index: 99;
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  
+  &.bg-white {
+    background-color: #fff; // Default background
+  }
+
+  &.sticky-css {
+    background-color: rgba(255, 255, 255, 0.8); // Blur effect
+    backdrop-filter: blur(10px); // Blur filter applied on scroll
+    transition: all 0.3s ease;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+
+
+    @include md {
+      height: 80px;
+    }
+
+    .left {
+      flex-direction: column;
+      position: absolute;
+      top: 50px;
+      width: 100%;
+      gap: 25px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 20px;
+
+      align-items: center;
+      @include md {
+        flex-direction: row;
+        position: relative;
+        top: auto;
+        display: flex;
+        border: none;
+      }
+    
+    
+    
+      li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        width: 100%;
+        text-align: center;
+        line-height: 3;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        @include md {
+          width: fit-content;
+          border: none;
+          text-align: start;
+        }
+        &:hover {
+          opacity: 0.6;
+        }
+
+        &:nth-last-child(2) {
+          border: none;
+        }
+      }
+    }
+    .center {
+      font-size: 22px;
+      font-weight: 700;
+      cursor: pointer;
+      @include md {
+        font-size: 28px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      .auth-btn {
+        width: fit-content;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+      }
+      .profile-avatar {
+        cursor: pointer;
+      }
+
+      .header-icons {
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .cart-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+        span {
+          position: absolute;
+          background-color: blue;
+          padding: 2.5px;
+          min-width: 20px;
+          text-align: center;
+          line-height: 1;
+          top: -5px;
+          right: -10px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 12px;
+        }
+      }
+    }
+
+  
+
+  }
+}
+
+

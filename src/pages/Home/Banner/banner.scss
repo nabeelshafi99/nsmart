@@ -1,0 +1,55 @@
+@import "../../../css-config/mixins.scss";
+
+.banner-main {
+
+    .banner-content {
+        display: flex;
+        margin: 0 auto;
+        flex-direction: column-reverse;
+
+        @include md {
+            height: 500px;
+            max-width: 1200px;
+            flex-direction: row;
+        }
+
+        .banner-left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            height: 100%;
+            text-align: center;
+            @include md{
+                text-align: start;
+                justify-content: flex-start;
+            }
+         
+
+            h1 {
+                font-size: 34px;
+                font-weight: 700;
+                text-transform: uppercase;
+                margin-bottom: 10px;
+
+                @include md {
+                    font-size: 64px;
+
+                }
+            }
+            h2{
+                font-size: 22px;
+                font-weight: 300;
+                margin-bottom: 10px;
+                @include md{
+                    font-size: 34px;
+                }
+            }
+            p{
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+}
