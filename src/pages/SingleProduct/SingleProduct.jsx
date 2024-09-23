@@ -14,8 +14,6 @@ const SingleProduct = () => {
         .then(res => res.json())
         .then((data) => setProducts(data));
     },[])
-    console.log(id)
-    console.log(products)
     return(
         <section className="text-gray-600 body-font overflow-hidden">
   <div className="container px-5 py-24 mx-auto">

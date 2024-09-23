@@ -1,6 +1,6 @@
 import { Avatar, Button, Space } from "antd";
 import "./header.scss";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TbSearch } from "react-icons/tb";
 import { CgShoppingCart } from "react-icons/cg";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -8,12 +8,14 @@ import { FaUser } from "react-icons/fa";
 import { FaBarsStaggered } from "react-icons/fa6";
 import Search from "antd/es/input/Search";
 import { Link } from "react-router-dom";
+import { UserContextCreate } from "../../Context/UserContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../utils/firebase";
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [scrolled, setScrolled] = useState(false);
- 
+  const{user,setUser} = useContext(UserContextCreate)
   const handleScroll = () => {
     const offset = window.scrollY;
     if(offset > 200){
@@ -26,6 +28,9 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
 }, []);
   
+const handleSignOut = () => {
+    signOut(auth)
+}
 
 
   return (
@@ -34,8 +39,8 @@ const Header = () => {
         <ul className={`left ${toggle ? "flex z-50 bg-white md:bg-transparent" : "hidden"}` }>
           <li><Link to={"/"}>Home</Link></li>
           <li><Link to={"/products"}>Shop</Link></li>
-          <li>About</li>
-          <li>Contact</li>
+          <li className="opacity-20">About</li>
+          <li className="opacity-20">Contact</li>
           <li>
             <Search
               placeholder="Search"
@@ -50,14 +55,20 @@ const Header = () => {
             </Button>
           </li>
         </ul>
-        <div className="center">NS MART</div>
+        <div className="center"><Link to={"/"}>NS MART</Link></div>
         <div className="right">
-          {!isLogin ? (
+          {!user ? (
             <>
               <Button type="link" className="auth-btn hover:opacity-55">
+                <Link to={"/signin"}>
                 Signin
+                </Link>
               </Button>
-              <Button className="auth-btn v2 shadow-none border">Signup</Button>
+              <Button className="auth-btn v2 shadow-none border">
+                <Link to={"/signup"}> 
+                Signup
+                </Link>
+                </Button>
             </>
           ) : (
             <>
@@ -75,7 +86,7 @@ const Header = () => {
                 className="header-icons block md:hidden"
               />
 
-              <Button className="auth-btn v2 shadow-none border hidden md:block">
+              <Button onClick={handleSignOut} className="auth-btn v2 shadow-none border hidden md:block">
                 Signout
               </Button>
             </>

@@ -6,7 +6,7 @@ const AuthApp = () =>{
 
     return(
         <h1>
-            authApp
+            AuthApp
         </h1>
     )
 
