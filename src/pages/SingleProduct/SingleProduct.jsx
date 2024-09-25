@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { useParams } from "react-router-dom";
-
+import {CartItemsContext} from '../../Context/CartContext';
 
 
 
@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 const SingleProduct = () => {
     const [products,setProducts] = useState([])
     const {id} = useParams();
+    const {addCartItems} = useContext(CartItemsContext)
 
     useEffect(()=>{
         fetch(`https://dummyjson.com/products/${id}`)
@@ -99,7 +100,13 @@ const SingleProduct = () => {
           <span className="title-font font-medium text-2xl text-gray-900">
             $ {products.price}
           </span>
-          <button className="flex ml-auto text-white bg-red-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
+          <button onClick={() => addCartItems({
+          id: products.id,
+          title : products.title,
+          price :products.price,
+          thumbnail : products.thumbnail
+
+        })} className="flex ml-auto text-white bg-red-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-500 rounded">
             Add to Cart
           </button>
         </div>
