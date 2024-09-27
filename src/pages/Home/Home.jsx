@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Products from "../Products/Products";
 import Banner from "./Banner/Banner";
-import "./home.scss"
+import "./home.scss";
+
 
 
 const Home =() =>{
@@ -10,12 +11,12 @@ const Home =() =>{
         const [beautySale ,setBeautySale] = useState([])
         const [furnitureSale,setFurnitureSale] = useState([])
         const [kitchenAccessories,setkitchenAccessories] = useState([])
-
+        
     useEffect(()=>{
         fetch('https://dummyjson.com/products/category/Laptops')
         .then(res => res.json())
         .then((data) => {
-                setLaptopSale(data.products)    
+                setLaptopSale(data.products) 
         });
 
     },[])
@@ -24,7 +25,7 @@ const Home =() =>{
         fetch('https://dummyjson.com/products/category/beauty')
         .then(res => res.json())
         .then((data) => {
-                setBeautySale(data.products)    
+                setBeautySale(data.products)   
         });
 
     },[])
@@ -51,7 +52,7 @@ const Home =() =>{
         <>
         <Banner />
         <div className="main-content">
-            <div className="layout">
+            <div  className="layout">
         <Products secTitle="Laptop Sale" getProducts={laptopSale} />
             </div>
         </div>

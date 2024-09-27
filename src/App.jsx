@@ -9,6 +9,7 @@ import Shop from './pages/Shop/Shop';
 import SignIn from "./pages/Auth/SignIn/SignIn";
 import SignUp from "./pages/Auth/SignUp/SignUp";
 import Auth from "./pages/Auth/Auth";
+import Checkout from './pages/Checkout/Checkout';
 
 function App() {
   return (
@@ -21,11 +22,14 @@ function App() {
       <Route path='/auth' element={<Auth />} />
       <Route path='/signin' element={<SignIn />} />
       <Route path='/signup' element={<SignUp />} />
+      <Route path='/checkout' element={<Checkout />} />
     </Routes>
       <Footer />
     </BrowserRouter>
 
   )
 }
+
+
 
 export default App

@@ -12,7 +12,8 @@ import {CartItemsContext} from "../../../Context/CartContext"
 
 function ProductCard({ id,title, category, thumbnail, stock, price }) {
   
-  const {addCartItems} = useContext(CartItemsContext);
+  const {addCartItems,cartItems} = useContext(CartItemsContext);
+  
   return (
     <Card style={{backgroundColor:"#fff",width:"14rem"}} sx={{ width: 320, maxWidth: "100%", boxShadow: "lg" }}>
       <CardOverflow>
@@ -47,7 +48,7 @@ function ProductCard({ id,title, category, thumbnail, stock, price }) {
             </Chip>
           }
         >
-         $ {price}
+         $ {((price * 30) / 100 ).toFixed(2)}
         </Typography>
         <Typography level="body-sm">
           (Only <b>{stock}</b> left in stock!)
@@ -60,7 +61,7 @@ function ProductCard({ id,title, category, thumbnail, stock, price }) {
           price :price,
           thumbnail:thumbnail
         })} variant="solid" color="danger" size="lg">
-          Add to cart
+        Add to cart
         </Button>
       </CardOverflow>
     </Card>

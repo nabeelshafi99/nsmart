@@ -5,9 +5,11 @@ import { FaPlus } from "react-icons/fa6";
 import "./cart.scss";
 import { FaMinus } from "react-icons/fa6";
 import { CartItemsContext } from "../../Context/CartContext";
+import { Link } from "react-router-dom";
 
 const Cart = ({ open, setOpen }) => {
-  const { cartItems, setCartItems } = useContext(CartItemsContext);
+  const { cartItems, setCartItems, addCartItems, removeCartItems } =
+    useContext(CartItemsContext);
   const [placement, setPlacement] = useState("right");
   const showDrawer = () => {
     setOpen(true);
@@ -24,10 +26,10 @@ const Cart = ({ open, setOpen }) => {
     0
   );
   const salesTax = subAmount * 0.02;
-  const discount = subAmount > 1000 && subAmount * 0.10;
-  const shippingCharges = subAmount < 2000 && subAmount * 0.10;
-  const grandTotal = subAmount + salesTax + shippingCharges - discount ;
-  
+  const discount = subAmount > 1000 && subAmount * 0.1;
+  const shippingCharges = subAmount < 2000 && subAmount * 0.1;
+  const grandTotal = subAmount + salesTax + shippingCharges - discount;
+
   return (
     <>
       <Drawer
@@ -40,9 +42,13 @@ const Cart = ({ open, setOpen }) => {
       >
         <div className="flex flex-col">
           <div className="grow">
-            {cartItems.map((res,index) => {
+            {cartItems.map((res, index) => {
               return (
-                <div key={index} className="mb-3 shadow">
+                <div
+                  style={{ borderRadius: "10px" }}
+                  key={index}
+                  className="mb-3 shadow"
+                >
                   <div className="cart-content flex justify-between">
                     <div className="cart-img">
                       <img src={res.thumbnail} className="w-full" alt="" />
@@ -51,16 +57,29 @@ const Cart = ({ open, setOpen }) => {
                       <h2>{res.title}</h2>
                       <h5>{`$ ${res.price}`}</h5>
                       <div className="cart-btn">
-                        <Button className="btn-icon">
+                        <Button
+                          onClick={() => removeCartItems(res)}
+                          className="btn-icon"
+                        >
                           <FaMinus />
                         </Button>
                         <div className="border px-4">{res.qty}</div>
-                        <Button className="btn-icon">
+                        <Button
+                          onClick={() => addCartItems(res)}
+                          className="btn-icon"
+                        >
                           <FaPlus />
                         </Button>
                       </div>
                     </div>
-                    <div className="cart-delete-btn">
+                    <div
+                      style={{
+                        borderRadius: "0px 10px 10px 0px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => removeCartItems(res, "delete")}
+                      className="cart-delete-btn hover:bg-red-600 hover:text-white"
+                    >
                       <MdDeleteOutline className="cart-delete-icon" />
                     </div>
                   </div>
@@ -69,7 +88,9 @@ const Cart = ({ open, setOpen }) => {
             })}
           </div>
 
-          <div className={`cart-invoice bg-white ${!cartItems.length && "hidden"}`}>
+          <div
+            className={`cart-invoice bg-white ${!cartItems.length && "hidden"}`}
+          >
             <div className="border-b flex justify-between leading-8">
               <h3 className="font-bold">Subtotal</h3>
               <h3 className="font-bold">{`$ ${Math.round(subAmount)}`}</h3>
@@ -84,16 +105,18 @@ const Cart = ({ open, setOpen }) => {
             </div>
             <div className="border-b flex justify-between leading-8">
               <h3 className="font-bold">Shipping Charges</h3>
-              <h3 className="font-bold">{`$ ${Math.round(shippingCharges)}`}</h3>
+              <h3 className="font-bold">{`$ ${Math.round(
+                shippingCharges
+              )}`}</h3>
             </div>
             <div className="border-b flex justify-between leading-8">
               <h3 className="font-bold">Grand Total</h3>
               <h3 className="font-bold">{`$ ${Math.round(grandTotal)}`}</h3>
             </div>
-
-            <Button className="w-full mt-2"> Checkout</Button>
+            <Link to="/checkout" onClick={onClose}>
+              <Button className="w-full mt-2"> Checkout</Button>
+            </Link>
           </div>
-
         </div>
       </Drawer>
     </>

@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import {Link, useNavigate } from "react-router-dom";
 import authImg from "../../../assets/authImg.jpg";
-import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { auth } from "../../../utils/firebase";
 
 const SignUp = () => {
@@ -16,6 +16,9 @@ const SignUp = () => {
         values.password
       );
       console.log("Account Successfully Create")
+      await updateProfile(auth.currentUser, {
+        displayName: values.fullname
+      })
       signOut(auth)
       navigate("/signin");
     } catch (error) {

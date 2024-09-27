@@ -91,7 +91,10 @@ const handleClick = () =>{
             </>
           ) : (
             <>
+            <span className="flex items-center gap-2">
               <Avatar className="profile-avatar" size={35} icon={<FaUser />} />
+            <span className="font-semibold text-sm cursor-pointer">{user.displayName.split(" ")[0]}</span>
+            </span>
 
               <TbSearch className="header-icons hidden md:block" />
               <AiOutlineHeart className="header-icons hidden md:block" />
